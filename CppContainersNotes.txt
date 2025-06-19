@@ -1,0 +1,241 @@
+#include <string>
+using std::string;
+
+// Declaration & Initialization
+string s1;                 // empty
+string s2 = "hello";       // from literal
+string s3(5, 'x');         // "xxxxx"
+string s4 = s2 + " world"; // concatenation
+
+// Key Operations
+s2 += "!";      // append (concatenate)
+char c = s2[1]; // index access
+
+string sub = s2.substr(2, 3); // substring from pos=2 len=3
+size_t pos = s2.find("lo");   // find substring, returns index or npos
+bool empty = s2.empty();      // is empty?
+s2.clear();                   // clear contents
+
+// Comparison
+if (s2 == s4)
+{ /* ... */
+}
+
+std::string s = "hi";
+s.push_back('!'); // hi!
+// Note: Can only push one char at a time
+s.pop_back()
+
+//Vector
+#include <vector>
+using std::vector;
+
+// 1D vector
+vector<int> v;                         // empty
+vector<int> v2(10);                    // size=10, default-initialized (0)
+vector<int> v3 = {1,2,3,4};            // initializer-list
+
+// 2D vector (matrix/graph adj list)
+int rows = 5, cols = 4;
+vector<vector<int>> mat(rows, vector<int>(cols, 0));
+// or for adjacency list
+vector<vector<int>> adj(n);
+
+// Common Ops
+v.push_back(42);           // append
+v.pop_back();              // remove last
+int x = v.back();          // access last
+v.front();                 // first element
+
+v.insert(v.begin()+i, 99);// insert at pos i
+v.erase(v.begin()+i);      // erase at pos i
+v.clear();                 // remove all
+
+// Searching & Sorting Helpers
+#include <algorithm>
+// assumes v sorted
+auto it = std::lower_bound(v.begin(), v.end(), target);
+auto it2 = std::upper_bound(v.begin(), v.end(), target);
+// distance from begin gives index of first ≥ (lower) or > (upper)
+
+//Finding max element in the Vector
+int maxVal = *max_element(a.begin(), a.end());
+Make sure the vector isn't empty before calling this—otherwise, max_element returns a.end(), and dereferencing that is 👻 undefined behavior.
+if (!nums.empty()) {
+    int maxVal = *max_element(nums.begin(), nums.end());
+}
+
+vector<int> nums = {4, 2, 9, 1, 6};
+
+int maxVal = *max_element(nums.begin(), nums.end()); // 9
+int minVal = *min_element(nums.begin(), nums.end()); // 1
+
+//Get index of the max element
+int maxIdx = max_element(nums.begin(), nums.end()) - nums.begin();
+int minIdx = min_element(nums.begin(), nums.end()) - nums.begin();
+
+//Say you have vector<string> and want the longest string:
+vector<string> strs = {"cat", "tiger", "lion"};
+
+auto it = max_element(strs.begin(), strs.end(),
+                      [](const string &a, const string &b) {
+                          return a.size() < b.size();
+                      });
+
+string longest = *it; // "tiger"
+
+// With pair<int, int>: Compare on second or custom rule
+vector<pair<int, int>> arr = {{1, 10}, {2, 5}, {3, 15}};
+
+// Max by second element
+auto maxBySecond = max_element(arr.begin(), arr.end(),
+                               [](auto &a, auto &b) {
+                                   return a.second < b.second;
+                               });
+// *maxBySecond = {3, 15}
+
+//You can use std::max_element and std::min_element with any 
+//container that supports iterators, because they operate over 
+//iterator ranges — not the container itself.
+
+std::list<int> nums = {5, 3, 8, 1};
+int maxVal = *std::max_element(nums.begin(), nums.end()); // 8
+
+std::set<int> s = {1, 2, 3, 4};
+// max = *s.rbegin(); OR use max_element
+int maxVal = *std::max_element(s.begin(), s.end()); // 4
+
+struct Car {
+    string model;
+    int speed;
+};
+
+vector<Car> cars = {{"A", 100}, {"B", 150}, {"C", 120}};
+
+auto fastest = max_element(cars.begin(), cars.end(), [](const Car& a, const Car& b) {
+    return a.speed < b.speed;
+});
+
+int val = 120;
+int clamped = std::clamp(val, 0, 100);  // clamped = 100
+/*
+This means:
+
+"If val is too big, just return the max (100);
+If it's too small, return the min (0);
+Otherwise, return the value itself."
+
+| Function                  | Use For                      |
+| ------------------------- | ---------------------------- |
+| `std::max(a, b)`          | Max of two values            |
+| `std::min(a, b)`          | Min of two values            |
+| `std::max_element`        | Max in a range               |
+| `std::min_element`        | Min in a range               |
+| `std::clamp(val, lo, hi)` | Bound a value between limits |
+*/
+
+
+#include <list>
+using std::list;
+
+list<int> lst;               // empty
+list<int> lst2(5, 0);        // five zeros
+
+// Ops
+lst.push_back(1);
+lst.push_front(2);
+lst.pop_back();
+lst.pop_front();
+
+// Splicing, inserting at iterator
+auto it = lst.begin();
+std::advance(it, 2);
+lst.insert(it, 99);          // O(1)
+lst.erase(it);               // O(1)
+
+// Deque
+#include <deque>
+using std::deque;
+
+deque<int> dq;
+dq.push_back(3);
+dq.push_front(4);
+dq.pop_back();
+dq.pop_front();
+
+int a = dq[0];               // random access (slightly slower than vector)
+
+//Sets
+
+#include <set>
+using std::set;
+
+set<int> st;                 
+st.insert(5);
+st.insert(1);
+st.erase(5);
+auto sit = st.find(1);       // iterator or end()
+bool exists = (sit != st.end());
+
+//Unordered Sets
+#include <unordered_set>
+using std::unordered_set;
+
+unordered_set<string> us;
+us.insert("abc");
+us.count("def");             // 0 or 1
+
+
+//Map
+
+#include <map>
+using std::map;
+
+map<int,string> mp;
+mp[1] = "one";               // insert or overwrite
+mp.insert({2, "two"});       
+mp.erase(1);
+auto mit = mp.find(2);       // iterator to pair or end()
+if (mit != mp.end()) {
+    int key = mit->first;
+    string val = mit->second;
+}
+
+
+
+// Unordered map
+#include <unordered_map>
+using std::unordered_map;
+
+unordered_map<string,int> ump;
+ump["a"] = 10;
+ump.count("b");              // 0 or 1
+
+
+//Queue Stacks
+
+#include <queue>
+#include <stack>
+
+std::queue<int> q;
+q.push(1);
+q.pop();
+int front = q.front();
+
+std::stack<int> stck;
+stck.push(2);
+stck.pop();
+int top = stck.top();
+
+
+//Searching Iteration
+// Iterating
+for (auto &x : v) { /* ... */ }
+for (auto it = mp.begin(); it != mp.end(); ++it) {
+    // it->first, it->second
+}
+
+// Generic find
+#include <algorithm>
+auto pos = std::find(v.begin(), v.end(), target);
+if (pos != v.end()) { /* found */ }
