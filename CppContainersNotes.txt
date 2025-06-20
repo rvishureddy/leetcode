@@ -26,6 +26,9 @@ s.push_back('!'); // hi!
 // Note: Can only push one char at a time
 s.pop_back()
 
+// if (result.ends_with(string(2, ch1))) // C++20 feature to check if the last two characters are same as ch1
+
+
 //Vector
 #include <vector>
 using std::vector;
