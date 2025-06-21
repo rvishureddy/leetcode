@@ -28,6 +28,39 @@ s.pop_back()
 
 // if (result.ends_with(string(2, ch1))) // C++20 feature to check if the last two characters are same as ch1
 
+/*TUPLE 
+🔹 std::tuple
+A tuple can hold heterogeneous types (different types).
+
+You access elements using std::get<index>().
+
+You can use it to group logically related but differently typed items (like a string, an int, and a float).
+*/
+#include <tuple>
+#include <string>
+using namespace std;
+
+tuple<string, int, float> person = {"Alice", 30, 55.5f};
+string name = get<0>(person);  // "Alice"
+int age = get<1>(person);      // 30
+float weight = get<2>(person); // 55.5
+
+maxHeap
+By default a max heap is created. 
+And by default the first element will be used to compare. 
+
+priority_queue<tuple<int, int, int>> maxpq;
+
+auto cmp = [](const tuple<int, int, int>& a, const tuple<int, int, int>& b) {
+    return get<0>(a) < get<0>(b); // min-heap on the first element
+};
+priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, decltype(cmp)> pq(cmp);
+
+
+
+
+
+
 
 //Vector
 #include <vector>

@@ -26,6 +26,12 @@ Example 3:
 Input: prices = [7,6,4,3,1]
 Output: 0
 Explanation: There is no way to make a positive profit, so we never buy the stock to achieve the maximum profit of 0.
+
+Notes:
+Greedy Approach:
+We can buy and sell the stock multiple times, so we should buy whenever the price goes up.
+Every day we check if the price is higher than the previous day, and if so, we add the difference to our total profit.
+We do not need to keep track of minimum prices or maximum prices, as we can simply accumulate profits from every upward movement in price.
 */
 
 #include <vector>
